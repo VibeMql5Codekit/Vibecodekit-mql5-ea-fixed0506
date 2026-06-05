@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-20",
+  "must_contain": [
+    "AP-20"
+  ],
+  "must_not_contain": [],
+  "severity": "ERROR",
+  "description": "Hardcoded `* 0.0001` pip math \u2014 breaks on JPY/XAU."
+}

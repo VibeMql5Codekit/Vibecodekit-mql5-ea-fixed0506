@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-25",
+  "must_contain": [
+    "AP-25"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "Raw `delete` without CheckPointer/SAFE_DELETE guard."
+}

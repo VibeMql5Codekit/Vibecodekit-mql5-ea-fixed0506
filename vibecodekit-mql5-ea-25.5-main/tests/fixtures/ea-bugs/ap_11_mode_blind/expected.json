@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-11",
+  "must_contain": [
+    "AP-11"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "PositionSelect/OrderSend without netting/hedging check."
+}

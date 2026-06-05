@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-1",
+  "must_contain": [
+    "AP-1"
+  ],
+  "must_not_contain": [],
+  "severity": "ERROR",
+  "description": "CTrade.Buy without stop-loss arg."
+}

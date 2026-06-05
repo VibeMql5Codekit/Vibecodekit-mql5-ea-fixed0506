@@ -1,0 +1,15 @@
+# GitHub Linguist hints — force MQL5 classification.
+#
+# Both .mqh and .mq5 are claimed by the MQL4 *and* MQL5 grammars.
+# Linguist's default disambiguator on .mqh matches the standard
+# MetaTrader header comment block as MQL4, which mis-labels this
+# repo's headers (CPipNormalizer.mqh, CRiskGuard.mqh, etc.) and
+# bridge scaffolds as MQL4 on the GitHub language bar.  Force MQL5.
+*.mqh linguist-language=MQL5
+*.mq5 linguist-language=MQL5
+
+# Don't let auto-generated stub artefacts inflate language stats.
+examples/**/results/canary.log linguist-generated=true
+examples/**/results/backtest.xml linguist-generated=true
+examples/**/results/matrix-64-cell.html linguist-generated=true
+examples/**/results/multibroker.csv linguist-generated=true

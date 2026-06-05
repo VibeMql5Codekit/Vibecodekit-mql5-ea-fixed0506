@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-16" ?>
+<!--
+  Sample MetaTrader 5 Strategy Tester report fixture.
+  Used by Phase B unit tests for XML parser.
+  Trimmed to essential fields; real reports are larger.
+-->
+<TesterReport>
+    <Symbol>EURUSD</Symbol>
+    <Period>H1</Period>
+    <ReportDate>2024.12.31</ReportDate>
+    <FromDate>2023.01.01</FromDate>
+    <ToDate>2024.12.31</ToDate>
+    <Statistics>
+        <ProfitFactor>1.78</ProfitFactor>
+        <RecoveryFactor>2.34</RecoveryFactor>
+        <SharpeRatio>0.42</SharpeRatio>
+        <GHPR>0.28</GHPR>
+        <AHPR>0.35</AHPR>
+        <ExpectedPayoff>12.5</ExpectedPayoff>
+        <LRCorrelation>0.78</LRCorrelation>
+        <LRStdError>0.04</LRStdError>
+        <MaxDrawdownPct>8.2</MaxDrawdownPct>
+        <TotalTrades>342</TotalTrades>
+        <ProfitablePct>58.5</ProfitablePct>
+        <WinningStreak>11</WinningStreak>
+        <LosingStreak>5</LosingStreak>
+        <MFECorrelation>0.65</MFECorrelation>
+        <MAECorrelation>0.55</MAECorrelation>
+        <BrokerDigits>5</BrokerDigits>
+    </Statistics>
+</TesterReport>

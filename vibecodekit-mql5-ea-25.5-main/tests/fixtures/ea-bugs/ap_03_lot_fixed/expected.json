@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-3",
+  "must_contain": [
+    "AP-3"
+  ],
+  "must_not_contain": [],
+  "severity": "ERROR",
+  "description": "Hardcoded fixed lot size."
+}

@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-17",
+  "must_contain": [
+    "AP-17"
+  ],
+  "must_not_contain": [],
+  "severity": "ERROR",
+  "description": "WebRequest call inside OnTick \u2014 blocks the tick."
+}

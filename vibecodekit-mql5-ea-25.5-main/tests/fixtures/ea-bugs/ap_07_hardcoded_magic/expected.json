@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-7",
+  "must_contain": [
+    "AP-7"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "Hardcoded magic number \u2014 bypasses CMagicRegistry."
+}

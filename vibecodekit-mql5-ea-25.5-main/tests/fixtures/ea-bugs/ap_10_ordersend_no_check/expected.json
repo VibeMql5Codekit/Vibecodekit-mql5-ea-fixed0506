@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-10",
+  "must_contain": [
+    "AP-10"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "OrderSend without retcode/result check."
+}

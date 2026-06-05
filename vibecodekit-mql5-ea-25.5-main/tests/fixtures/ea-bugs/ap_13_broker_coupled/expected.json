@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-13",
+  "must_contain": [
+    "AP-13"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "Hardcoded broker name string \u2014 couples EA to a single broker."
+}

@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-4",
+  "must_contain": [
+    "AP-4"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "Martingale lot doubling without max-lot cap."
+}

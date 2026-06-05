@@ -1,0 +1,187 @@
+# syntax=docker/dockerfile:1.7
+# ──────────────────────────────────────────────────────────────────────────────
+# vibecodekit-mql5-ea — reproducible Devin runtime
+#
+# Builds the same environment Devin sessions boot into, minus the MetaEditor
+# wine prefix (which has to be installed at build time via the bundled
+# setup-wine-metaeditor.sh because the MT5 installer is a Wine GUI program).
+#
+# Three stages, controlled by ``--target``:
+#
+#   base    Ubuntu 22.04 + Python 3.10 venv with the pinned dev deps from
+#           requirements.lock, plus the kit installed in editable mode. Every
+#           kit CLI (`mql5-lint`, `mql5-build`, `mql5-auto-fix`, ...) works
+#           except the compile/tester stages. `pytest tests/gates -q` passes.
+#           Image ~500 MB.
+#
+#   wine    + Wine 8.0.2 (pinned) + winetricks + xvfb + winbind + cabextract.
+#           The Wine prefix at /opt/wine-mql5 is initialised so `wineboot` no
+#           longer dawdles on first run. MetaEditor itself is *not* installed
+#           — see scripts/setup-wine-metaeditor.sh inside the running
+#           container if you want headless `mql5-compile`. Image ~1.8 GB.
+#
+#   ci      Same as ``wine`` but with the test suite eagerly executed during
+#           the build (so an image push is gated on a passing `pytest`).
+#           Image ~1.8 GB.
+#
+# Usage examples:
+#
+#   docker build -f Dockerfile.devin --target base -t mql5kit:base .
+#   docker run --rm -it mql5kit:base mql5-doctor
+#   docker run --rm -it -v "$PWD":/work mql5kit:base \
+#       mql5-auto-build --spec /work/ea.yaml --out-dir /work/build --no-compile
+#
+#   docker build -f Dockerfile.devin --target wine -t mql5kit:wine .
+#   docker run --rm -it mql5kit:wine bash -c \
+#       'sudo -E /opt/mql5kit/scripts/setup-wine-metaeditor.sh && mql5-doctor'
+#
+#   docker build -f Dockerfile.devin --target ci   -t mql5kit:ci   .
+#
+# Pinning rules:
+#   * Base image is sha-pinned via $UBUNTU_IMAGE; bump when CVEs land.
+#   * Python is the Ubuntu-shipped 3.10 (jammy). All Python deps are pinned
+#     in requirements.lock (regenerate via `pip-compile --extra dev`).
+#   * Wine is pinned to ``$WINE_PIN_VERSION`` to match the setup script —
+#     Wine 11 (jammy default) has a regression that breaks silent MT5 install.
+# ──────────────────────────────────────────────────────────────────────────────
+
+ARG UBUNTU_IMAGE=ubuntu:22.04
+ARG WINE_PIN_VERSION=8.0.2~jammy-1
+
+
+############################################################################
+# Stage 1 — base: kit + pinned Python deps, no Wine.
+############################################################################
+FROM ${UBUNTU_IMAGE} AS base
+
+ARG DEBIAN_FRONTEND=noninteractive
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Minimal system deps. ``ca-certificates`` is needed before any HTTPS pip
+# install; ``git`` because the kit ships some test fixtures via submodule-
+# friendly tooling and because `pip install -e .` runs `setuptools_scm`-style
+# probes that prefer a working git binary.
+RUN apt-get update -qq \
+ && apt-get install -y -qq --no-install-recommends \
+        ca-certificates \
+        curl \
+        git \
+        python3 \
+        python3-venv \
+        python3-pip \
+        sudo \
+ && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user matching the typical Devin VM layout
+# (uid 1000, sudo without password). The Devin shell defaults to running
+# as this user; root only happens for setup-wine when explicitly invoked.
+RUN useradd --create-home --shell /bin/bash --uid 1000 ubuntu \
+ && echo 'ubuntu ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/ubuntu \
+ && chmod 0440 /etc/sudoers.d/ubuntu
+
+WORKDIR /opt/mql5kit
+
+# Copy the lock-pinned dep list + pyproject.toml *first* so changes to
+# source code don't bust the (slow) pip layer cache.
+COPY pyproject.toml requirements.lock README.md ./
+COPY scripts/vibecodekit_mql5/__init__.py scripts/vibecodekit_mql5/__init__.py
+
+# Build the venv with deps from the lockfile, then install the kit itself.
+# pip-tools-style lockfiles are not directly accepted by pip's --constraint
+# but they are by --requirement (they just look like a pinned requirements
+# file). Use --no-deps when installing the kit so the lock stays authoritative.
+RUN python3 -m venv /opt/venv \
+ && /opt/venv/bin/pip install --upgrade pip \
+ && /opt/venv/bin/pip install --no-cache-dir -r requirements.lock
+
+# Now copy the full repo and install the kit in editable mode.
+COPY . /opt/mql5kit
+RUN /opt/venv/bin/pip install --no-cache-dir --no-deps -e .
+
+# Make the venv the default Python for both root and the ubuntu user.
+ENV PATH=/opt/venv/bin:$PATH \
+    VIRTUAL_ENV=/opt/venv
+
+# Hand the workdir + venv to the ubuntu user so pip-installed scripts are
+# writable without sudo (matches the Devin VM convention).
+RUN chown -R ubuntu:ubuntu /opt/venv /opt/mql5kit
+
+USER ubuntu
+WORKDIR /opt/mql5kit
+
+# Smoke-test that the editable install registered every console_script the
+# pyproject.toml claims. Fails the build early if a CLI is broken.
+RUN mql5-doctor --help > /dev/null \
+ && mql5-build --help > /dev/null \
+ && mql5-lint --help  > /dev/null \
+ && mql5-auto-build --help > /dev/null \
+ && mql5-auto-fix --help   > /dev/null
+
+CMD ["bash"]
+
+
+############################################################################
+# Stage 2 — wine: + Wine 8.0.2 + winetricks for headless compile / tester.
+############################################################################
+FROM base AS wine
+
+ARG WINE_PIN_VERSION
+USER root
+
+# Same WineHQ source-list setup the setup-wine script uses, but baked into
+# the image so we don't depend on apt over the network at runtime.
+RUN dpkg --add-architecture i386 \
+ && apt-get update -qq \
+ && apt-get install -y -qq --no-install-recommends \
+        gnupg \
+        wget \
+        apt-transport-https \
+ && mkdir -pm 755 /etc/apt/keyrings \
+ && wget -qO /etc/apt/keyrings/winehq-archive.key \
+        https://dl.winehq.org/wine-builds/winehq.key \
+ && wget -qNP /etc/apt/sources.list.d/ \
+        https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources \
+ && apt-get update -qq \
+ && apt-get install -y -qq --no-install-recommends --install-recommends \
+        cabextract \
+        xvfb \
+        winetricks \
+        winbind \
+        "winehq-stable=${WINE_PIN_VERSION}" \
+        "wine-stable=${WINE_PIN_VERSION}" \
+        "wine-stable-amd64=${WINE_PIN_VERSION}" \
+        "wine-stable-i386:i386=${WINE_PIN_VERSION}" \
+ && rm -rf /var/lib/apt/lists/*
+
+# Wine prefix at a stable path; setup-wine-metaeditor.sh expects this.
+ENV WINEPREFIX=/opt/wine-mql5 \
+    WINEARCH=win64 \
+    WINEDEBUG=-all
+
+# Pre-create the prefix dir so the ubuntu user can write into it without
+# needing sudo for every wineboot call.
+RUN mkdir -p /opt/wine-mql5 \
+ && chown -R ubuntu:ubuntu /opt/wine-mql5
+
+USER ubuntu
+WORKDIR /opt/mql5kit
+
+# Render the doctor output as a non-blocking smoke. Without MetaEditor it
+# reports `metaeditor-bin = FAIL`; that's expected and not a build error.
+# Use ``|| true`` so the build doesn't abort when the binary check fails.
+RUN mql5-doctor || true
+
+
+############################################################################
+# Stage 3 — ci: eagerly run pytest during build so image push gates on green.
+############################################################################
+FROM wine AS ci
+
+USER ubuntu
+WORKDIR /opt/mql5kit
+
+# 365+ tests; the suite is hermetic, so it runs without Wine + without MT5.
+RUN pytest tests/gates -q

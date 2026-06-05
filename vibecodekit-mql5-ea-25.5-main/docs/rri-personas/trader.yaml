@@ -1,0 +1,135 @@
+# Honest disclaimer: this persona and its question set are project-defined
+# heuristics designed by vibecodekit-mql5-ea, not industry standards.
+# RRI persona — trader (end-user trading the EA).
+#
+# Plan v5 §9.4 — 25 questions × 3 modes. Personal mode uses the 5 questions
+# tagged `priority: critical`, Team mode the 12 with `priority: high|critical`,
+# Enterprise mode the full 25.
+persona: trader
+description: End-user trader running the EA on a live or demo account.
+questions:
+  - id: trader-01
+    text: "What is the maximum acceptable drawdown for this strategy?"
+    priority: critical
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [personal, team, enterprise]
+  - id: trader-02
+    text: "What instruments and timeframes is this EA approved to trade?"
+    priority: critical
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [personal, team, enterprise]
+  - id: trader-03
+    text: "What is the per-trade risk percentage and how is it enforced?"
+    priority: critical
+    applicable_steps: [rri, vision, verify, refine]
+    applicable_modes: [personal, team, enterprise]
+  - id: trader-04
+    text: "Is there a daily-loss kill switch and when does it fire?"
+    priority: critical
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [personal, team, enterprise]
+  - id: trader-05
+    text: "Does the EA respect news windows / session boundaries?"
+    priority: critical
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [personal, team, enterprise]
+  - id: trader-06
+    text: "How will I know the EA is functioning (journal cues, dashboard, alerts)?"
+    priority: high
+    applicable_steps: [vision, verify, refine]
+    applicable_modes: [team, enterprise]
+  - id: trader-07
+    text: "What happens to open positions if the EA is detached or restarts?"
+    priority: high
+    applicable_steps: [rri, blueprint, verify]
+    applicable_modes: [team, enterprise]
+  - id: trader-08
+    text: "Is there a manual override and how do I trigger it safely?"
+    priority: high
+    applicable_steps: [rri, verify, refine]
+    applicable_modes: [team, enterprise]
+  - id: trader-09
+    text: "What is the expected number of trades per day / week?"
+    priority: high
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [team, enterprise]
+  - id: trader-10
+    text: "What spread / commission environment is the strategy tuned for?"
+    priority: high
+    applicable_steps: [rri, blueprint, verify]
+    applicable_modes: [team, enterprise]
+  - id: trader-11
+    text: "How is leverage selected and constrained?"
+    priority: high
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [team, enterprise]
+  - id: trader-12
+    text: "Does the EA handle weekend gap risk explicitly?"
+    priority: high
+    applicable_steps: [rri, blueprint, verify]
+    applicable_modes: [team, enterprise]
+  - id: trader-13
+    text: "What evidence supports the claimed expectancy (sample size, time span)?"
+    priority: standard
+    applicable_steps: [rri, vision, verify]
+    applicable_modes: [enterprise]
+  - id: trader-14
+    text: "How are losing streaks bounded behaviourally (rule, not feeling)?"
+    priority: standard
+    applicable_steps: [rri, verify, refine]
+    applicable_modes: [enterprise]
+  - id: trader-15
+    text: "What is the worst historical drawdown sequence and recovery time?"
+    priority: standard
+    applicable_steps: [verify]
+    applicable_modes: [enterprise]
+  - id: trader-16
+    text: "Are trade reasons logged in a human-readable form?"
+    priority: standard
+    applicable_steps: [build, verify, refine]
+    applicable_modes: [enterprise]
+  - id: trader-17
+    text: "What is the rollback procedure if a release misbehaves?"
+    priority: standard
+    applicable_steps: [vision, refine]
+    applicable_modes: [enterprise]
+  - id: trader-18
+    text: "How is performance reported back to me (daily, weekly, ad-hoc)?"
+    priority: standard
+    applicable_steps: [vision, refine]
+    applicable_modes: [enterprise]
+  - id: trader-19
+    text: "What's the policy if a broker changes execution rules mid-run?"
+    priority: standard
+    applicable_steps: [rri, blueprint]
+    applicable_modes: [enterprise]
+  - id: trader-20
+    text: "Are my expectations on uptime aligned with the chosen hosting?"
+    priority: standard
+    applicable_steps: [vision, blueprint]
+    applicable_modes: [enterprise]
+  - id: trader-21
+    text: "How is success/failure of a trade communicated post-mortem?"
+    priority: standard
+    applicable_steps: [verify, refine]
+    applicable_modes: [enterprise]
+  - id: trader-22
+    text: "What position sizing rule applies for compounding vs fixed?"
+    priority: standard
+    applicable_steps: [rri, vision]
+    applicable_modes: [enterprise]
+  - id: trader-23
+    text: "Are entry/exit signals deterministic given identical input bars?"
+    priority: standard
+    applicable_steps: [build, verify]
+    applicable_modes: [enterprise]
+  - id: trader-24
+    text: "Have I personally validated the EA on demo for at least 2 weeks?"
+    priority: standard
+    applicable_steps: [verify, refine]
+    applicable_modes: [enterprise]
+  - id: trader-25
+    text: "Do I understand all configurable inputs and their failure modes?"
+    priority: standard
+    applicable_steps: [vision, refine]
+    applicable_modes: [enterprise]

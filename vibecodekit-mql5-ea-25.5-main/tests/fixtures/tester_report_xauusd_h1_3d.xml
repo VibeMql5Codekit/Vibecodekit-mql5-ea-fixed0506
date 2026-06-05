@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-16" ?>
+<TesterReport>
+    <Symbol>XAUUSD</Symbol>
+    <Period>H1</Period>
+    <ReportDate>2024.12.31</ReportDate>
+    <Statistics>
+        <ProfitFactor>1.74</ProfitFactor>
+        <SharpeRatio>0.40</SharpeRatio>
+        <MaxDrawdownPct>8.5</MaxDrawdownPct>
+        <TotalTrades>298</TotalTrades>
+        <ProfitablePct>56.7</ProfitablePct>
+        <BrokerDigits>3</BrokerDigits>
+        <PipMath>(digits=3) ⇒ pip = 10*point = 0.01</PipMath>
+    </Statistics>
+</TesterReport>

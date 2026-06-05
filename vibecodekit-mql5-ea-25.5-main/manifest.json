@@ -1,0 +1,629 @@
+{
+  "schema_version": "1",
+  "kit": "vibecodekit-mql5-ea",
+  "kit_version": "1.6.1",
+  "generated_by": "mql5-manifest",
+  "tools": [
+    {
+      "name": "mql5-async-build",
+      "module": "vibecodekit_mql5.async_build",
+      "entry_point": "vibecodekit_mql5.async_build:main",
+      "description": "mql5-async-build \u2014 render an HFT async-OrderSend scaffold.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-audit",
+      "module": "vibecodekit_mql5.audit",
+      "entry_point": "vibecodekit_mql5.audit:main",
+      "description": "/mql5-audit \u2014 run the 70-test conformance battery.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-auto-build",
+      "module": "vibecodekit_mql5.auto_build",
+      "entry_point": "vibecodekit_mql5.auto_build:main",
+      "description": "mql5-auto-build \u2014 single-command EA build pipeline.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-auto-fix",
+      "module": "vibecodekit_mql5.auto_fix",
+      "entry_point": "vibecodekit_mql5.auto_fix:main",
+      "description": "mql5-auto-fix \u2014 best-effort transformer that re-emits ``.mq5`` source with",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-backtest",
+      "module": "vibecodekit_mql5.backtest",
+      "entry_point": "vibecodekit_mql5.backtest:main",
+      "description": "mql5-backtest \u2014 Strategy Tester wrapper.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-blueprint",
+      "module": "vibecodekit_mql5.blueprint",
+      "entry_point": "vibecodekit_mql5.blueprint:main",
+      "description": "/mql5-blueprint \u2014 open the Step 4 (BLUEPRINT) template.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-blueprint-gen",
+      "module": "vibecodekit_mql5.step_gen.blueprint_gen",
+      "entry_point": "vibecodekit_mql5.step_gen.blueprint_gen:main",
+      "description": "mql5-blueprint-gen \u2014 auto-emit ``step-4-blueprint.md`` from ``ea-spec.yaml``.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-broker-safety",
+      "module": "vibecodekit_mql5.broker_safety",
+      "entry_point": "vibecodekit_mql5.broker_safety:main",
+      "description": "mql5-broker-safety \u2014 standalone Layer-7 (broker-safety) checks.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-bt-sim",
+      "module": "vibecodekit_mql5.bt_engine",
+      "entry_point": "vibecodekit_mql5.bt_engine:main",
+      "description": "mql5-bt-sim \u2014 Wave 3.E Python tick-bar simulator (in-process).",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-build",
+      "module": "vibecodekit_mql5.build",
+      "entry_point": "vibecodekit_mql5.build:main",
+      "description": "mql5-build \u2014 render a Phase A scaffold into a fresh project directory.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-canary",
+      "module": "vibecodekit_mql5.canary",
+      "entry_point": "vibecodekit_mql5.canary:main",
+      "description": "/mql5-canary \u2014 post-deploy 30-minute live monitor.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-ceo-review",
+      "module": "vibecodekit_mql5.review.ceo_review",
+      "entry_point": "vibecodekit_mql5.review.ceo_review:main",
+      "description": "mql5-ceo-review \u2014 Wave-3 alias for ``mql5-review --lens ceo``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-cloud-optimize",
+      "module": "vibecodekit_mql5.cloud_optimize",
+      "entry_point": "vibecodekit_mql5.cloud_optimize:main",
+      "description": "mql5-cloud-optimize \u2014 generate a tester.ini for MetaQuotes Cloud Network.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-compile",
+      "module": "vibecodekit_mql5.compile",
+      "entry_point": "vibecodekit_mql5.compile:main",
+      "description": "mql5-compile \u2014 thin wrapper around MetaEditor's CLI compile mode.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-completion-report",
+      "module": "vibecodekit_mql5.step_gen.completion_report",
+      "entry_point": "vibecodekit_mql5.step_gen.completion_report:main",
+      "description": "Wave 6.2 \u2014 per-TIP Completion Report emitter.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-contract-gen",
+      "module": "vibecodekit_mql5.step_gen.contract_gen",
+      "entry_point": "vibecodekit_mql5.step_gen.contract_gen:main",
+      "description": "mql5-contract-gen \u2014 Wave 6.1 \u2014 emit ``contract.md`` from blueprint + spec.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-cso",
+      "module": "vibecodekit_mql5.review.cso",
+      "entry_point": "vibecodekit_mql5.review.cso:main",
+      "description": "mql5-cso \u2014 Wave-3 alias for ``mql5-review --lens cso``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-dashboard",
+      "module": "vibecodekit_mql5.dashboard",
+      "entry_point": "vibecodekit_mql5.dashboard:main",
+      "description": "Render and publish the post-build quality-matrix dashboard.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-deploy-vps",
+      "module": "vibecodekit_mql5.deploy_vps",
+      "entry_point": "vibecodekit_mql5.deploy_vps:main",
+      "description": "mql5-deploy-vps \u2014 gate deploy + emit MIGRATE-VPS.md guide.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-docs-assemble",
+      "module": "vibecodekit_mql5.docs_assemble",
+      "entry_point": "vibecodekit_mql5.docs_assemble:main",
+      "description": "mql5-docs-assemble \u2014 convert an LLM-authored ``guide.md`` to ``.docx``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-docs-bundle",
+      "module": "vibecodekit_mql5.docs_bundle",
+      "entry_point": "vibecodekit_mql5.docs_bundle:main",
+      "description": "mql5-docs-bundle \u2014 emit a deterministic LLM context + prompt pair.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-doctor",
+      "module": "vibecodekit_mql5.doctor",
+      "entry_point": "vibecodekit_mql5.doctor:main",
+      "description": "/mql5-doctor \u2014 kit installation + environment health check.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-ea-docs",
+      "module": "vibecodekit_mql5.ea_docs",
+      "entry_point": "vibecodekit_mql5.ea_docs:main",
+      "description": "Orchestrator + CLI for the post-build EA documentation generator.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-eng-review",
+      "module": "vibecodekit_mql5.review.eng_review",
+      "entry_point": "vibecodekit_mql5.review.eng_review:main",
+      "description": "mql5-eng-review \u2014 Wave-3 alias for ``mql5-review --lens eng``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-escalation",
+      "module": "vibecodekit_mql5.rri.escalation",
+      "entry_point": "vibecodekit_mql5.rri.escalation:main",
+      "description": "Wave 6.2b \u2014 actor-to-actor escalation audit log.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-fitness",
+      "module": "vibecodekit_mql5.fitness",
+      "entry_point": "vibecodekit_mql5.fitness:main",
+      "description": "mql5-fitness \u2014 pick a tester fitness template from a labelled goal.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-fixture",
+      "module": "vibecodekit_mql5.fixture",
+      "entry_point": "vibecodekit_mql5.fixture:main",
+      "description": "mql5-fixture \u2014 hermetic synthetic MetaTrader 5 report generator.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-forge-init",
+      "module": "vibecodekit_mql5.forge_init",
+      "entry_point": "vibecodekit_mql5.forge_init:main",
+      "description": "mql5-forge-init \u2014 create a new repository on MQL5 Algo Forge.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-forge-loop",
+      "module": "vibecodekit_mql5.forge_loop",
+      "entry_point": "vibecodekit_mql5.forge_loop:main",
+      "description": "mql5-forge-loop \u2014 hermetic forge iteration loop (Wave 3 W3.C).",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-forge-pr",
+      "module": "vibecodekit_mql5.forge_pr",
+      "entry_point": "vibecodekit_mql5.forge_pr:main",
+      "description": "mql5-forge-pr \u2014 open a pull request on MQL5 Algo Forge.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-init",
+      "module": "vibecodekit_mql5.init",
+      "entry_point": "vibecodekit_mql5.init:main",
+      "description": "mql5-init \u2014 interactive 5-question wizard that emits ``ea-spec.yaml``.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-install",
+      "module": "vibecodekit_mql5.install",
+      "entry_point": "vibecodekit_mql5.install:main",
+      "description": "/mql5-install \u2014 reconcile-install kit overlay onto an existing project.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-investigate",
+      "module": "vibecodekit_mql5.review.investigate",
+      "entry_point": "vibecodekit_mql5.review.investigate:main",
+      "description": "mql5-investigate \u2014 Wave-3 alias for ``mql5-review --lens investigate``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-lint",
+      "module": "vibecodekit_mql5.lint",
+      "entry_point": "vibecodekit_mql5.lint:main",
+      "description": "mql5-lint \u2014 8 critical anti-pattern detector for .mq5 files.",
+      "supports_json": true,
+      "supports_sarif": true,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-llm-context",
+      "module": "vibecodekit_mql5.llm_context",
+      "entry_point": "vibecodekit_mql5.llm_context:main",
+      "description": "mql5-llm-context \u2014 wire an LLM bridge scaffold into an existing EA.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-manifest",
+      "module": "vibecodekit_mql5.manifest",
+      "entry_point": "vibecodekit_mql5.manifest:main",
+      "description": "mql5-manifest \u2014 emit a root agent manifest of all CLI tools.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-method-hiding-check",
+      "module": "vibecodekit_mql5.method_hiding_check",
+      "entry_point": "vibecodekit_mql5.method_hiding_check:main",
+      "description": "mql5-method-hiding-check \u2014 detect MQL5 inheritance hiding without `using`.",
+      "supports_json": true,
+      "supports_sarif": true,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-mfe-mae",
+      "module": "vibecodekit_mql5.mfe_mae",
+      "entry_point": "vibecodekit_mql5.mfe_mae:main",
+      "description": "mql5-mfe-mae \u2014 analyze per-trade MFE/MAE CSV emitted by CMfeMaeLogger.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-monte-carlo",
+      "module": "vibecodekit_mql5.monte_carlo",
+      "entry_point": "vibecodekit_mql5.monte_carlo:main",
+      "description": "mql5-monte-carlo \u2014 bootstrap trade history \u2192 DD distribution.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-multibroker",
+      "module": "vibecodekit_mql5.multibroker",
+      "entry_point": "vibecodekit_mql5.multibroker:main",
+      "description": "mql5-multibroker \u2014 run a backtest on N broker accounts; check stability.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-onnx-embed",
+      "module": "vibecodekit_mql5.onnx_embed",
+      "entry_point": "vibecodekit_mql5.onnx_embed:main",
+      "description": "mql5-onnx-embed \u2014 inject `#resource \"model.onnx\"` + COnnxLoader hookup.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-onnx-export",
+      "module": "vibecodekit_mql5.onnx_export",
+      "entry_point": "vibecodekit_mql5.onnx_export:main",
+      "description": "mql5-onnx-export \u2014 wrap a PyTorch/TensorFlow model into a frozen ONNX file.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-optimize-run",
+      "module": "vibecodekit_mql5.optimize_run",
+      "entry_point": "vibecodekit_mql5.optimize_run:main",
+      "description": "mql5-optimize-run \u2014 drive the MetaTrader 5 Strategy Tester optimizer end-to-end.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-overfit-check",
+      "module": "vibecodekit_mql5.overfit_check",
+      "entry_point": "vibecodekit_mql5.overfit_check:main",
+      "description": "mql5-overfit-check \u2014 OOS/IS Sharpe ratio sanity gate.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-package",
+      "module": "vibecodekit_mql5.package",
+      "entry_point": "vibecodekit_mql5.package:main",
+      "description": "mql5-package \u2014 produce a ship-ready EA artifact bundle.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-permission",
+      "module": "vibecodekit_mql5.permission.orchestrator",
+      "entry_point": "vibecodekit_mql5.permission.orchestrator:main",
+      "description": "Permission orchestrator \u2014 run the 7 layers in order, fail-fast.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-permission-layer5",
+      "module": "vibecodekit_mql5.permission.layer5_methodology",
+      "entry_point": "vibecodekit_mql5.permission.layer5_methodology:main",
+      "description": "Permission Layer 5 \u2014 METHODOLOGY-GATE (RRI 8-step completed).",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-pip-normalize",
+      "module": "vibecodekit_mql5.pip_normalize",
+      "entry_point": "vibecodekit_mql5.pip_normalize:main",
+      "description": "mql5-pip-normalize \u2014 refactor hardcoded pip math to CPipNormalizer calls.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-refine",
+      "module": "vibecodekit_mql5.refine",
+      "entry_point": "vibecodekit_mql5.refine:main",
+      "description": "/mql5-refine \u2014 classify a diff against the Plan v5 refine envelope.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-review",
+      "module": "vibecodekit_mql5.review.review",
+      "entry_point": "vibecodekit_mql5.review.review:main",
+      "description": "mql5-review \u2014 unified review wrapper.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-rri",
+      "module": "vibecodekit_mql5.rri",
+      "entry_point": "vibecodekit_mql5.rri:main",
+      "description": "Vibecodekit RRI methodology package + Wave-3 umbrella ``mql5-rri``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-rri-bt",
+      "module": "vibecodekit_mql5.rri.rri_bt",
+      "entry_point": "vibecodekit_mql5.rri.rri_bt:main",
+      "description": "mql5-rri-bt \u2014 RRI Backtest review (5 personas \u00d7 7 dim \u00d7 8 axis).",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-rri-chart",
+      "module": "vibecodekit_mql5.rri.rri_chart",
+      "entry_point": "vibecodekit_mql5.rri.rri_chart:main",
+      "description": "mql5-rri-chart \u2014 optional RRI review for indicator development.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-rri-rr",
+      "module": "vibecodekit_mql5.rri.rri_rr",
+      "entry_point": "vibecodekit_mql5.rri.rri_rr:main",
+      "description": "mql5-rri-rr \u2014 RRI Risk & Robustness review.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-scan",
+      "module": "vibecodekit_mql5.scan",
+      "entry_point": "vibecodekit_mql5.scan:main",
+      "description": "/mql5-scan \u2014 survey a project tree for MQL5 sources + classify.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-second-opinion",
+      "module": "vibecodekit_mql5.second_opinion",
+      "entry_point": "vibecodekit_mql5.second_opinion:main",
+      "description": "/mql5-second-opinion \u2014 run a one-shot lint + trader-check sanity pass.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-ship",
+      "module": "vibecodekit_mql5.ship",
+      "entry_point": "vibecodekit_mql5.ship:main",
+      "description": "/mql5-ship \u2014 tag + push the current commit.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-spec-from-prompt",
+      "module": "vibecodekit_mql5.spec_from_prompt",
+      "entry_point": "vibecodekit_mql5.spec_from_prompt:main",
+      "description": "Translate a free-text description into a valid ``ea-spec.yaml``.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-survey",
+      "module": "vibecodekit_mql5.survey",
+      "entry_point": "vibecodekit_mql5.survey:main",
+      "description": "/mql5-survey \u2014 map a strategy description to a scaffold archetype.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-task-graph-gen",
+      "module": "vibecodekit_mql5.step_gen.task_graph_gen",
+      "entry_point": "vibecodekit_mql5.step_gen.task_graph_gen:main",
+      "description": "Wave 6.2 \u2014 emit a per-TIP task graph from a Wave-6.1 contract.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-tester-run",
+      "module": "vibecodekit_mql5.tester_run",
+      "entry_point": "vibecodekit_mql5.tester_run:main",
+      "description": "mql5-tester-run \u2014 drive the MetaTrader 5 Strategy Tester end-to-end.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-tip",
+      "module": "vibecodekit_mql5.tip",
+      "entry_point": "vibecodekit_mql5.tip:main",
+      "description": "/mql5-tip \u2014 open the Step 5 (TIP) template.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-tip-gen",
+      "module": "vibecodekit_mql5.step_gen.tip_gen",
+      "entry_point": "vibecodekit_mql5.step_gen.tip_gen:main",
+      "description": "mql5-tip-gen \u2014 auto-emit ``step-5-tip.md`` from ``step-4-blueprint.md``.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-trader-check",
+      "module": "vibecodekit_mql5.trader_check",
+      "entry_point": "vibecodekit_mql5.trader_check:main",
+      "description": "mql5-trader-check \u2014 Plan v5 \u00a78 Trader-17 safety + technical checklist.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-verify-report",
+      "module": "vibecodekit_mql5.step_gen.verify_report",
+      "entry_point": "vibecodekit_mql5.step_gen.verify_report:main",
+      "description": "mql5-verify-report \u2014 Wave 6.1 \u2014 emit ``verify-report.md`` summary.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-vision",
+      "module": "vibecodekit_mql5.vision",
+      "entry_point": "vibecodekit_mql5.vision:main",
+      "description": "/mql5-vision \u2014 open the Step 3 (VISION) template.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    },
+    {
+      "name": "mql5-vision-gen",
+      "module": "vibecodekit_mql5.step_gen.vision_gen",
+      "entry_point": "vibecodekit_mql5.step_gen.vision_gen:main",
+      "description": "mql5-vision-gen \u2014 auto-emit ``step-3-vision.md`` from ``step-2-rri.md``.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-walkforward",
+      "module": "vibecodekit_mql5.walkforward",
+      "entry_point": "vibecodekit_mql5.walkforward:main",
+      "description": "mql5-walkforward \u2014 Forward 1/4 (75% IS, 25% OOS) orchestrator.",
+      "supports_json": true,
+      "supports_sarif": false,
+      "supports_gate_report": true
+    },
+    {
+      "name": "mql5-wizard",
+      "module": "vibecodekit_mql5.wizard",
+      "entry_point": "vibecodekit_mql5.wizard:main",
+      "description": "mql5-wizard \u2014 render the wizard-composable scaffold.",
+      "supports_json": false,
+      "supports_sarif": false,
+      "supports_gate_report": false
+    }
+  ]
+}

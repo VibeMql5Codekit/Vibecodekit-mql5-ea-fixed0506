@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-18",
+  "must_contain": [
+    "AP-18"
+  ],
+  "must_not_contain": [],
+  "severity": "ERROR",
+  "description": "OrderSendAsync with no OnTradeTransaction handler."
+}

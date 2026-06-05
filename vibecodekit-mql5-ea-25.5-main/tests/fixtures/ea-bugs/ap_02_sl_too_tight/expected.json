@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-2",
+  "must_contain": [
+    "AP-2"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "SL set to 3 pips \u2014 below typical stops-level."
+}

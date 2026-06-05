@@ -1,0 +1,186 @@
+name: CI
+
+on:
+  push:
+    branches: [main, devin/phase-0-bootstrap]
+  pull_request:
+    branches: [main, devin/phase-0-bootstrap]
+
+jobs:
+  # ──────────────────────────────────────────────────────────
+  # Lint — fast pre-flight check (no Wine, no MetaEditor)
+  # Mirrors the local task-loop in AGENTS.md §"Task Loop":
+  #   `ruff check scripts mcp`
+  # ──────────────────────────────────────────────────────────
+  lint:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install ruff (from [dev] extra)
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --quiet --upgrade pip
+          pip install --quiet -e ".[dev]"
+
+      - name: Run ruff on scripts/ and mcp/
+        run: |
+          source .venv/bin/activate
+          ruff check scripts mcp
+
+  # ──────────────────────────────────────────────────────────
+  # Linux runner — Wine + MetaEditor (faster dev loop)
+  # ──────────────────────────────────────────────────────────
+  linux-tests:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 60
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      
+      - name: Install Wine + MetaEditor
+        run: |
+          # `sudo -E` preserves WINEPREFIX from the step env so the setup
+          # script installs MetaEditor into /home/runner/.wine-mql5, where
+          # the later test step looks for it. Plain `sudo` would reset HOME
+          # to /root and install into /root/.wine-mql5.
+          sudo -E bash scripts/setup-wine-metaeditor.sh
+        env:
+          WINEPREFIX: /home/runner/.wine-mql5
+      
+      - name: Install Python deps
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install --quiet --upgrade pip
+          pip install --quiet -e ".[dev]"
+      
+      - name: Run audit (anti-drift check)
+        run: |
+          source .venv/bin/activate
+          # Detect current phase from VERSION
+          VERSION=$(cat VERSION)
+          case "$VERSION" in
+            0.0.*)  PHASE=0 ;;
+            0.1.*)  PHASE=A ;;
+            0.2.*)  PHASE=B ;;
+            0.3.*|0.4.*) PHASE=C ;;
+            0.5.*|0.6.*|0.7.*|0.8.*|0.9.*) PHASE=D ;;
+            1.*)    PHASE=E ;;
+            *)      PHASE=0 ;;
+          esac
+          echo "Detected phase: $PHASE"
+          python scripts/audit-plan-v5.py --post-phase="$PHASE"
+      
+      - name: Run all phase gate tests
+        run: |
+          source .venv/bin/activate
+          # Locate MetaEditor under the WINEPREFIX so the compile smoke test
+          # doesn't have to rglob a possibly mixed-case filename.
+          METAEDITOR_PATH=$(find "$WINEPREFIX" -iname "metaeditor64.exe" 2>/dev/null | head -1 || true)
+          if [ -n "$METAEDITOR_PATH" ]; then
+            export METAEDITOR_PATH
+            echo "Using METAEDITOR_PATH=$METAEDITOR_PATH"
+          fi
+          # Run all phase gates that exist
+          for phase_dir in tests/gates/phase-*; do
+            if [ -d "$phase_dir" ]; then
+              echo "Running $phase_dir..."
+              xvfb-run -a python -m pytest "$phase_dir" -v
+            fi
+          done
+        env:
+          WINEPREFIX: /home/runner/.wine-mql5
+          WINEDEBUG: "-all"
+          WINEDLLOVERRIDES: "mscoree,mshtml="
+      
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-test-logs
+          path: |
+            .ci-logs/
+            tests/.cache/
+
+  # ──────────────────────────────────────────────────────────
+  # Windows runner — native MetaEditor (full speed)
+  # ──────────────────────────────────────────────────────────
+  windows-tests:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      
+      - name: Install MT5 + MetaEditor (Windows native)
+        shell: pwsh
+        run: |
+          $url = "https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe"
+          $installer = "$env:TEMP\mt5setup.exe"
+          Invoke-WebRequest -Uri $url -OutFile $installer
+          Start-Process -FilePath $installer -ArgumentList "/auto" -Wait
+          # Verify install
+          $metaeditor = Get-ChildItem -Path "C:\Program Files\MetaTrader 5" -Filter "metaeditor64.exe" -Recurse | Select-Object -First 1
+          if (-not $metaeditor) { throw "MetaEditor not found after install" }
+          echo "METAEDITOR_PATH=$($metaeditor.FullName)" >> $env:GITHUB_ENV
+      
+      - name: Install Python deps
+        shell: pwsh
+        run: |
+          python -m venv .venv
+          .venv\Scripts\Activate.ps1
+          pip install --quiet --upgrade pip
+          pip install --quiet -e ".[dev]"
+      
+      - name: Run all phase gate tests (Windows native)
+        shell: pwsh
+        run: |
+          .venv\Scripts\Activate.ps1
+          $phases = Get-ChildItem -Path tests\gates -Directory -Filter "phase-*"
+          foreach ($p in $phases) {
+            Write-Host "Running $($p.Name)..."
+            python -m pytest $p.FullName -v
+          }
+      
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-test-logs
+          path: |
+            .ci-logs/
+            tests/.cache/
+
+  # ──────────────────────────────────────────────────────────
+  # Release gate — only runs on tag push
+  # ──────────────────────────────────────────────────────────
+  release-gate:
+    needs: [linux-tests, windows-tests]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-22.04
+    
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "All gates passed; release tag ${GITHUB_REF#refs/tags/} approved"

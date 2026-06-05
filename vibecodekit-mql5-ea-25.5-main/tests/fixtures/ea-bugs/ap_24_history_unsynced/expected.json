@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-24",
+  "must_contain": [
+    "AP-24"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "CopyRates without SeriesInfoInteger/SYNCHRONIZED guard."
+}

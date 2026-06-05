@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-23",
+  "must_contain": [
+    "AP-23"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "CTrade.Buy/Sell without ResultRetcode() check."
+}

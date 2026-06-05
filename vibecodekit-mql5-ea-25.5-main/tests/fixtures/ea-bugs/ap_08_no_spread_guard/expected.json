@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-8",
+  "must_contain": [
+    "AP-8"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "OrderSend without spread guard."
+}

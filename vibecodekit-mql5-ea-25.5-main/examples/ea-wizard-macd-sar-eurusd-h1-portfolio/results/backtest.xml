@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Report Expert="MacdSarEurUsdH1" Symbol="EURUSD" Period="H1" From="2022-01-01" To="2024-12-31">
+  <Statistics>
+    <Stat name="NetProfit">12345.67</Stat>
+    <Stat name="ProfitFactor">1.42</Stat>
+    <Stat name="RecoveryFactor">2.81</Stat>
+    <Stat name="SharpeRatio">1.18</Stat>
+    <Stat name="BalanceDDPercent">8.40</Stat>
+    <Stat name="EquityDDPercent">9.12</Stat>
+    <Stat name="Trades">487</Stat>
+    <Stat name="ProfitTrades">259</Stat>
+    <Stat name="LossTrades">228</Stat>
+    <Stat name="ExpectedPayoff">25.35</Stat>
+    <Stat name="LRCorrelation">0.71</Stat>
+    <Stat name="ZScore">1.93</Stat>
+  </Statistics>
+</Report>

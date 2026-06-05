@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-5",
+  "must_contain": [
+    "AP-5"
+  ],
+  "must_not_contain": [],
+  "severity": "ERROR",
+  "description": ">6 input declarations \u2014 optimizer-overfit risk."
+}

@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-21",
+  "must_contain": [
+    "AP-21"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "// digits-tested meta covers only 1 digit class."
+}

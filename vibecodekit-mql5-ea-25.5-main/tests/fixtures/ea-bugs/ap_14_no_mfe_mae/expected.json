@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-14",
+  "must_contain": [
+    "AP-14"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "EA places trades but no CMfeMaeLogger wired."
+}

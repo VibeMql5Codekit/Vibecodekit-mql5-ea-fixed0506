@@ -1,0 +1,4 @@
+broker,sharpe,profit,drawdown_pct,trades,verdict
+fxpro-demo,1.18,12345.67,8.40,487,PASS
+exness-demo,1.11,11920.11,8.92,491,PASS
+icmarkets-demo,1.24,12880.45,7.95,479,PASS

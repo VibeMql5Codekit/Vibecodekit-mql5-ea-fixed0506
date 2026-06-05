@@ -1,0 +1,9 @@
+{
+  "primary_code": "AP-12",
+  "must_contain": [
+    "AP-12"
+  ],
+  "must_not_contain": [],
+  "severity": "WARN",
+  "description": "iATR handle created without matching IndicatorRelease."
+}
